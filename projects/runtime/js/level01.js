@@ -102,7 +102,7 @@ var level01 = function (window) {
            rewardImg.scaleY = 0.1;
            reward.onPlayerCollision = function() {
                console.log('Halle has collected a reward');
-               reward.onPlayerCollision = game.increaseScore(3000);
+               reward.onPlayerCollision = game.increaseScore(3500);
                reward.fadeOut();
            };
            

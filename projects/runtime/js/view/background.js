@@ -36,7 +36,7 @@ var background = function (window) {
             // TODO: 2 - Part 2
             // this fills the background with a obnoxious yellow
             // you should modify this to suit your game
-            var backgroundFill = draw.rect(canvasWidth,canvasHeight,'#780606');
+            var backgroundFill = draw.rect(canvasWidth,canvasHeight,'#110f2e                                                                                         ');
             
             
             background.addChild(backgroundFill);
