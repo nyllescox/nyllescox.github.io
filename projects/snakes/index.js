@@ -100,8 +100,29 @@ function moveSnake() {
   HINT: The snake's head will need to move forward 1 square based on the value
   of snake.head.direction which may be one of "left", "right", "up", or "down"
   */
+  snake.head.direction = snake.head.nextDirection;
   
+  var nextRow = snake.head.row;
+var nextColumn = snake.head.column;
+snake.head.row          // the current row of snake.head
+snake.head.column       // the current column of snake.head
+snake.head.direction    // the direction that the head should move towards
+ 
+ if(snake.head.direction ==="up") {
+   nextRow--;
+ }if(snake.head.direction ==="down") {
+   nextRow++;
+ }
+ if(snake.head.direction ==="right") {
+   nextColumn++;
+ }
+ if(snake.head.direction ==="left") {
+   nextColumn--;
+ }
+ 
   
+  repositionSquare(snake.head, nextRow, nextColumn);
+
 }
 
 function hasCollidedWithApple() {
@@ -150,6 +171,9 @@ function hasCollidedWithSnake() {
   head and each part of the snake's body also knows its own row and column.
   
   */
+
+
+
   
   return false;
 }
@@ -161,7 +185,18 @@ function hasHitWall() {
   
   HINT: What will the row and column of the snake's head be if this were the case?
   */
-  
+  ROWS                // the total number of ROWS in the board
+COLUMNS             // the total number of COLUMNS in the board
+snake.head.row      // the current row of snake.head
+snake.head.column   // the current column of snake.head 
+
+if ( snake.head.column > COLUMNS.width ) {
+                snake.head.column = 0;
+                console.log("Left Wall Hit");
+            } 
+
+
+
   return false;
 }
 
