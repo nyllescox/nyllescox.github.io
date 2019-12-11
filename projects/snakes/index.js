@@ -49,7 +49,7 @@ function init() {
   snake.head = makeSnakeSquare(10, 10).attr('id', 'snake-head');
   
   // TODO 7: initialize the first apple
-
+apple = makeApple();
 
   // set score to 0
   scoreElement.text("Score: 0");
@@ -90,7 +90,18 @@ function moveSnake() {
   column/row properties. 
   
   */
-  
+  for (var i = snake.body.length-1; i >= 1; i--) {
+    var snakeSquare = snake.body[i];
+    
+    var nextSnakeSquare = snake.body[i-1];
+    var nextRow = nextSnakeSquare.row;
+    var nextColumn = nextSnakeSquare.column;
+    var nextDirection = nextSnakeSquare.direction;
+    snakeSquare.direction = nextDirection;
+    repositionSquare(snakeSquare, nextRow, nextColumn);
+    
+
+}
   
 
   
@@ -132,6 +143,14 @@ function hasCollidedWithApple() {
   
   HINT: Both the apple and the snake's head are aware of their own row and column
   */
+  apple.row           // the current row of the apple
+apple.column        // the current column of the apple
+snake.head.row      // the current row of snake.head
+snake.head.column   // the current column of snake.head 
+if(apple.row === snake.head.row && apple.column === snake.head.column) {
+  return true;
+}
+
   
   return false;
 }
@@ -154,8 +173,17 @@ function handleAppleCollision() {
   If the tail is moving "down", place the next snakeSquare above it.
   etc...
   */ 
-  var row = 0;
-  var column = 0;
+  var row = snake.tail.row;
+  var column = snake.tail.column;
+  if(snake.tail.direction === "left") {
+    column--;
+  } else if(snake.tail.direction === "right") {
+    column++;
+  } else if(snake.tail.direction === "up") {
+    row++;
+  } else if(snake.tail.direction === "down") {
+    row--;
+  }
   
   // code to determine the row and column of the snakeSquare to add to the snake
   
@@ -190,14 +218,19 @@ COLUMNS             // the total number of COLUMNS in the board
 snake.head.row      // the current row of snake.head
 snake.head.column   // the current column of snake.head 
 
-if ( snake.head.column > COLUMNS.width ) {
-                snake.head.column = 0;
+if ( snake.head.column > COLUMNS ) {
                 console.log("Left Wall Hit");
-            } 
+                return true; 
+            } else if(snake.head.column < 0) {
+              return true;
+            } else if(snake.head.row > ROWS) {
+              return true;
+            } else if(snake.head.row < 0) {
+              return true;
+            }
 
+return false;
 
-
-  return false;
 }
 
 function endGame() {
@@ -257,6 +290,7 @@ function repositionSquare(square, row, column) {
 function makeApple() {
   // make the apple jQuery Object and append it to the board
   apple = $('<div>').addClass('apple').appendTo(board);
+  
 
   // get a random available position on the board and position the apple
   var randomPosition = getRandomAvailablePosition();
