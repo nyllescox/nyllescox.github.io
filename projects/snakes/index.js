@@ -147,6 +147,7 @@ function hasCollidedWithApple() {
 apple.column        // the current column of the apple
 snake.head.row      // the current row of snake.head
 snake.head.column   // the current column of snake.head 
+
 if(apple.row === snake.head.row && apple.column === snake.head.column) {
   return true;
 }
@@ -199,9 +200,14 @@ function hasCollidedWithSnake() {
   head and each part of the snake's body also knows its own row and column.
   
   */
+  for (var i = 1; i < snake.body.length; i++) {
+    if (snake.head.row === snake.body[i].row && snake.head.column === snake.body[i].column) {
+      return true;
+    }
+  }
 
-
-
+  
+  
   
   return false;
 }
@@ -306,11 +312,11 @@ function getRandomAvailablePosition() {
   var randomPosition = {};
   
   /* Generate random positions until one is found that doesn't overlap with the snake */
-  while (!spaceIsAvailable) {
+ while (!spaceIsAvailable) {
     randomPosition.column = Math.floor(Math.random() * COLUMNS);
     randomPosition.row = Math.floor(Math.random() * ROWS);
     spaceIsAvailable = true;
-    
+
     /*
     TODO 12: After generating the random position determine if that position is
     not occupied by a snakeSquare in the snake's body. If it is then set 

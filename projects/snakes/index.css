@@ -28,10 +28,10 @@ body, #board {
 }
 
 #snake-head {
-  background-color: red;
+  background-color: brown;
 }
 
 .apple {
-  background-color: green;
+  background-color: red;
   z-index: 1;
 }
